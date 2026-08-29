@@ -2,7 +2,7 @@
 
 **Learn how a write-ahead log works by running one — then crashing it.**
 
-Six guided lessons and an interactive sandbox, in plain TypeScript with zero
+Seven guided lessons and an interactive sandbox, in plain TypeScript with zero
 runtime dependencies.
 
 ---
@@ -42,6 +42,7 @@ Requires Node 20+.
 | 4 | Crash and replay | Lesson 1's disaster, survived |
 | 5 | Replay is idempotent | Why it is safe to crash *during* recovery and just start over |
 | 6 | Why "write-ahead" | Swap two lines, crash mid-write, watch a confirmed order vanish |
+| 7 | Checkpoints | The log can't grow forever — snapshot the state and truncate what it covers |
 
 ## All the commands
 
@@ -54,7 +55,7 @@ npm run lessons -- --fast     skip the narration pauses
 npm run typecheck             tsc --noEmit
 ```
 
-Lesson 6 ignores `--fast` — its timing *is* the demonstration.
+Lessons 6 and 7 ignore `--fast` — their timing *is* the demonstration.
 
 ## The sandbox
 
@@ -96,8 +97,8 @@ last time. Durability lives in the file, not the process.
 ## The log file
 
 Everything is written as one JSON record per line. The sandbox uses
-`data/wal.log`; each lesson gets its own `data/lesson-<n>.wal.log` so they stay
-independent. Open them whenever you like — they are meant to be read.
+`data/wal.log`; each lesson gets its own `data/lesson-<n>.wal.log` (and lesson 7
+a `data/lesson-7.snapshot.json`) so they stay independent. Open them whenever you like — they are meant to be read.
 
 ```json
 {"lsn":1,"op":"SET","key":"user:1","value":"alice"}
@@ -144,8 +145,8 @@ this.mem.apply(record);
 ## What this deliberately leaves out
 
 Kept out to hold the idea in one piece: transactions and commit records,
-checkpointing and log truncation, segment rotation, group commit, CRC checksums
-and torn-write detection, and real `fsync`. The 40ms "disk write" in
+segment rotation, group commit, CRC checksums and torn-write detection, and
+real `fsync`. The 40ms "disk write" in
 [`src/wal.ts`](src/wal.ts) is a `setTimeout` modelling the *cost* of durability
 — a real WAL would call `fsync()` and wait for the drive to confirm.
 

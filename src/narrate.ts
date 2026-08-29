@@ -113,10 +113,17 @@ export function note(text: string): void {
   line(dim(`        ${text}`));
 }
 
-export function crashBanner(detail = 'in-memory state is gone'): void {
+const CRASH_SUBLINE = '(the log file on disk is untouched -- a crash cannot un-write bytes)';
+
+/**
+ * `subline` is overridable because the default is not always true: lesson 7
+ * deliberately truncates the log during a checkpoint, so claiming the file is
+ * untouched would contradict what the learner is looking at.
+ */
+export function crashBanner(detail = 'in-memory state is gone', subline = CRASH_SUBLINE): void {
   line();
   line(red(bold('  \u{1F4A5} CRASH')) + dim(`  — ${detail}`));
-  line(dim('     (the log file on disk is untouched -- a crash cannot un-write bytes)'));
+  if (subline) line(dim(`     ${subline}`));
   line();
 }
 

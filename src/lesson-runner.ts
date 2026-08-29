@@ -7,8 +7,15 @@ import type { Lesson } from './lessons/index.js';
  * cannot drift apart in how they treat a lesson.
  */
 
-/** Lesson 6 IS the timing. Running it with --fast would delete the point. */
-export const TIMING_CRITICAL = new Set([6]);
+/**
+ * Lessons whose timing IS the demonstration. Running these with --fast would
+ * collapse the sleep() they crash inside of, and they would silently "prove"
+ * the opposite of what they say.
+ *
+ *   6 -- crashes mid disk-write to show write-behind losing an acknowledged write
+ *   7 -- crashes between a checkpoint's truncate and its snapshot
+ */
+export const TIMING_CRITICAL = new Set([6, 7]);
 
 export function wantsFast(argv: string[]): boolean {
   return argv.includes('--fast') || process.env['WAL_FAST'] === '1';

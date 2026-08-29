@@ -31,7 +31,7 @@ function welcome(): void {
   n.line('  changing anything in memory, first append a description of the');
   n.line('  change to a file on disk. Crash, and the file is still there.');
   n.line();
-  n.line(`  ${n.dim('Six short lessons. You control the pace; we stop after each one.')}`);
+  n.line(`  ${n.dim(`${lessons.length} short lessons. You control the pace; we stop after each one.`)}`);
   n.line(`  ${n.dim('Writes really do land in')} data/*.wal.log ${n.dim('— open them as you go.')}`);
   n.line();
 }
@@ -68,9 +68,10 @@ async function pause(rl: readline.Interface, index: number): Promise<Choice> {
 async function finale(rl: readline.Interface): Promise<boolean> {
   n.line(n.dim('  ────────────────────────────────────────────────────────'));
   n.line();
-  n.line(`  ${n.bold('That is all six.')} You now know what a write-ahead log is for,`);
-  n.line('  what an LSN is, why replay is safe to repeat, and why the log is');
-  n.line('  written ahead of the change it describes.');
+  n.line(`  ${n.bold(`That is all ${lessons.length}.`)} You now know what a write-ahead log is`);
+  n.line('  for, what an LSN is, why replay is safe to repeat, why the log is');
+  n.line('  written ahead of the change it describes, and how checkpoints stop');
+  n.line('  it growing forever.');
   n.line();
   n.line('  The sandbox is where it sticks. Try this in it:');
   n.line(n.dim('    SET user:1 alice  →  CRASH  →  GET user:1  →  RECOVER  →  GET user:1'));

@@ -6,7 +6,7 @@ import * as n from './narrate.js';
  * Run lessons individually, by number.
  *
  *   npm run lesson 4              one lesson, at reading speed
- *   npm run lessons               all six, back to back, no pauses
+ *   npm run lessons               every lesson, back to back, no pauses
  *   npm run lesson 4 -- --fast    no delays (also: WAL_FAST=1)
  *
  * For the guided, one-at-a-time walkthrough, use `npm start` instead.
@@ -53,7 +53,9 @@ async function main(): Promise<void> {
   }
 
   if (selected.length > 1) {
-    n.line(n.bold('  That is all six. Now go break it yourself:  ') + n.cyan('npm run repl'));
+    n.line(
+      n.bold(`  That is all ${lessons.length}. Now go break it yourself:  `) + n.cyan('npm run repl'),
+    );
     n.line();
   }
 }
