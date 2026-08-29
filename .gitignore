@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build output
+dist/
+
+# The log files the lessons and the REPL write. Regenerated on every run --
+# and part of the point is that you create them yourself.
+data/
+
+# Local Claude Code context and configuration
+.claude/
+
+# OS noise
+.DS_Store

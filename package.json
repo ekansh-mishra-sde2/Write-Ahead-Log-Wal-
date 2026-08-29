@@ -1,0 +1,32 @@
+{
+  "name": "wal-by-example",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Learn how a Write-Ahead Log works by running one. Six guided lessons plus a REPL sandbox, in plain TypeScript with zero runtime dependencies.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "wal",
+    "write-ahead-log",
+    "database",
+    "durability",
+    "crash-recovery",
+    "teaching",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "tsx src/start.ts",
+    "repl": "tsx src/repl.ts",
+    "lesson": "tsx src/run-lesson.ts",
+    "lessons": "tsx src/run-lesson.ts all",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
